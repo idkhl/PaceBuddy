@@ -428,31 +428,7 @@ Reply ONLY with the suggested time in MM:SS or HH:MM:SS format (e.g., "45:30" or
             personalized training plan based on your actual running history, or continue as a guest and manually select your fitness level.
           </p>
 
-          <div className="bg-secondary/40 border-4 border-secondary rounded-2xl p-5 mb-8 text-left text-sm text-foreground/90 shadow-brutal-sm">
-            <p className="font-extrabold mb-2 uppercase tracking-wide text-foreground">Strava Setup (Optional):</p>
-            <ol className="list-decimal pl-4 space-y-2 font-medium">
-              <li>
-                Open your{" "}
-                <a
-                  href="https://www.strava.com/settings/api"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline decoration-2 decoration-foreground font-bold text-foreground"
-                >
-                  Strava API Settings
-                </a>
-              </li>
-              <li>
-                Set the Authorization Callback Domain to: <br />
-                <code className="bg-white border-2 border-foreground px-2 py-0.5 rounded-md mt-1 inline-block break-all font-bold text-foreground">
-                  {window.location.host}
-                </code>
-              </li>
-              <li>
-                Add your Client ID and Secret to the AI Studio Secrets panel.
-              </li>
-            </ol>
-          </div>
+          
 
           <button
             onClick={handleConnect}

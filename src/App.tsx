@@ -308,7 +308,7 @@ Concise, actionable tips for injury prevention and recovery tailored to their sp
 `;
 
       const response = await ai.models.generateContent({
-        model: "gemini-flash-latest",
+        model: "gemini-2.5-flash",
         contents: prompt,
       });
 
@@ -387,7 +387,7 @@ Calculate a realistic but challenging target finish time for this ${raceLength} 
 Reply ONLY with the suggested time in MM:SS or HH:MM:SS format (e.g., "45:30" or "01:45:00"). Do not add any extra text, explanation, or markdown formatting.`;
 
       const response = await ai.models.generateContent({
-        model: "gemini-flash-latest",
+        model: "gemini-2.5-flash",
         contents: prompt,
       });
 

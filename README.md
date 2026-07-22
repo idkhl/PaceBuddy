@@ -1,21 +1,21 @@
-# 🏃 PaceBuddy
+#  PaceBuddy
 
 PaceBuddy is an AI-powered running coach that connects to your Strava account to generate hyper-personalized training plans based on your actual running history, heart rate zones, and fitness level.
 
-## ✨ Features
+##  Features
 
 - **Strava Integration**: Authenticates securely with Strava to fetch your recent runs, pacing, and heart rate zones.
 - **AI Training Plans**: Uses Google's Gemini API to generate smart, week-by-week training plans tailored to your specific goals and race dates.
 - **Race Pace Calculator**: Includes a built-in calculator utilizing Riegel's formula to predict your finish time based on recent best efforts.
 - **Neo-Brutalist Theming**: A bold, fully customizable UI. You can change the entire color scheme of the app just by editing 5 hex codes.
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Frontend**: React 19, Vite, Tailwind CSS v4, Framer Motion, Lucide Icons
 - **Backend**: Express (Node.js) for handling Strava OAuth and API routes
 - **AI**: `@google/genai` (Gemini Flash)
 
-## 🚀 Getting Started (Local Development)
+##  Getting Started (Local Development)
 
 ### 1. Prerequisites
 - [Node.js](https://nodejs.org/) installed on your machine.
@@ -45,7 +45,7 @@ npm run dev
 ```
 Open your browser and navigate to `http://localhost:3000`.
 
-## 🎨 Customizing the Theme
+## Customizing the Theme
 
 PaceBuddy uses a dynamic CSS variable system. You can completely change the look and feel of the app by modifying the `:root` variables in `src/index.css`:
 
@@ -60,6 +60,3 @@ PaceBuddy uses a dynamic CSS variable system. You can completely change the look
 ```
 All Tailwind classes (`bg-primary`, `text-foreground`, `shadow-brutal-xl`) will automatically adapt to your new colors!
 
-## 📜 License
-MIT
-# PaceBuddy

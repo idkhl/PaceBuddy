@@ -1,0 +1,5 @@
+{
+  "name": "PaceBuddy",
+  "description": "An AI running coach for beginners that uses Strava data to create personalized training plans.",
+  "requestFramePermissions": []
+}

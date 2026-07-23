@@ -6,6 +6,8 @@ import {
   ArrowRight,
   Loader2,
   LogOut,
+  Moon,
+  Sun,
   Target,
   TrendingUp,
   Calculator,
@@ -57,6 +59,12 @@ interface StravaZones {
 }
 
 export default function App() {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    const savedTheme = localStorage.getItem("pacebuddy-theme");
+    if (savedTheme) return savedTheme === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [isGuest, setIsGuest] = useState(false);
   const [activities, setActivities] = useState<StravaActivity[]>([]);
@@ -89,6 +97,11 @@ export default function App() {
   const [isGoalExpanded, setIsGoalExpanded] = useState(true);
   const [isOverviewExpanded, setIsOverviewExpanded] = useState(false);
   const [currentTipIndex, setCurrentTipIndex] = useState(0);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", isDarkMode ? "dark" : "light");
+    localStorage.setItem("pacebuddy-theme", isDarkMode ? "dark" : "light");
+  }, [isDarkMode]);
 
   const parsedPlan = useMemo(() => {
     if (!plan) return { overview: "", weekly: "", tips: "", tipsArray: [] as string[] };
@@ -463,6 +476,15 @@ Reply ONLY with the suggested time in MM:SS or HH:MM:SS format (e.g., "45:30" or
             PaceBuddy
           </div>
           <div className="flex items-center gap-4">
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="text-foreground/70 hover:text-foreground hover:-translate-y-0.5 bg-white border-2 border-transparent hover:border-foreground hover:shadow-brutal px-3 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all active:translate-y-0 active:shadow-none"
+              title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDarkMode ? <Sun className="w-4 h-4 stroke-[3]" /> : <Moon className="w-4 h-4 stroke-[3]" />}
+              {isDarkMode ? "Light" : "Dark"}
+            </button>
             {isAuthenticated && (
               <Link
                 to="/saved-plans"

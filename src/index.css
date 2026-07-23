@@ -30,12 +30,25 @@
     --text-and-borders-color: #17243Fff;
 }
 
+[data-theme="dark"] {
+    --background-color: #0f172a;
+    --secondary-color: #334155;
+    --primary-color: #0ea5e9;
+    --primary-hover-color: #0284c7;
+    --text-and-borders-color: #e2e8f0;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--color-bg);
   color: var(--color-foreground);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {
   font-family: var(--font-display);
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: #111827 !important;
 }

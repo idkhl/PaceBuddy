@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Activity, ArrowLeft, Loader2, Calendar } from "lucide-react";
+import { Activity, ArrowLeft, Loader2, Calendar, Moon, Sun } from "lucide-react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -12,6 +12,12 @@ interface Plan {
 }
 
 export default function SavedPlans() {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    const savedTheme = localStorage.getItem("pacebuddy-theme");
+    if (savedTheme) return savedTheme === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -20,6 +26,11 @@ export default function SavedPlans() {
   useEffect(() => {
     fetchPlans();
   }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", isDarkMode ? "dark" : "light");
+    localStorage.setItem("pacebuddy-theme", isDarkMode ? "dark" : "light");
+  }, [isDarkMode]);
 
   const fetchPlans = async () => {
     try {
@@ -44,13 +55,24 @@ export default function SavedPlans() {
             </div>
             PaceBuddy
           </Link>
-          <Link
-            to="/"
-            className="text-foreground/70 hover:text-foreground hover:-translate-y-0.5 bg-white border-2 border-transparent hover:border-foreground hover:shadow-brutal px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all active:translate-y-0 active:shadow-none"
-          >
-            <ArrowLeft className="w-4 h-4 stroke-[3]" />
-            Back to Dashboard
-          </Link>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="text-foreground/70 hover:text-foreground hover:-translate-y-0.5 bg-white border-2 border-transparent hover:border-foreground hover:shadow-brutal px-3 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all active:translate-y-0 active:shadow-none"
+              title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDarkMode ? <Sun className="w-4 h-4 stroke-[3]" /> : <Moon className="w-4 h-4 stroke-[3]" />}
+              {isDarkMode ? "Light" : "Dark"}
+            </button>
+            <Link
+              to="/"
+              className="text-foreground/70 hover:text-foreground hover:-translate-y-0.5 bg-white border-2 border-transparent hover:border-foreground hover:shadow-brutal px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all active:translate-y-0 active:shadow-none"
+            >
+              <ArrowLeft className="w-4 h-4 stroke-[3]" />
+              Back to Dashboard
+            </Link>
+          </div>
         </div>
       </header>
 

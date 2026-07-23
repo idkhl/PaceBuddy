@@ -72,9 +72,9 @@ export default function App() {
   // Calculator State
   const [showCalculator, setShowCalculator] = useState(false);
   const [calcRecentDist, setCalcRecentDist] = useState<number>(5);
-  const [calcRecentHours, setCalcRecentHours] = useState<number>(0);
-  const [calcRecentMinutes, setCalcRecentMinutes] = useState<number>(25);
-  const [calcRecentSeconds, setCalcRecentSeconds] = useState<number>(0);
+  const [calcRecentHours, setCalcRecentHours] = useState<string>("0");
+  const [calcRecentMinutes, setCalcRecentMinutes] = useState<string>("25");
+  const [calcRecentSeconds, setCalcRecentSeconds] = useState<string>("0");
   const [calcTargetDist, setCalcTargetDist] = useState<number>(10);
   
   // Manual Fitness State (when no Strava data)
@@ -308,7 +308,7 @@ Concise, actionable tips for injury prevention and recovery tailored to their sp
 `;
 
       const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.6-flash",
         contents: prompt,
       });
 
@@ -325,7 +325,10 @@ Concise, actionable tips for injury prevention and recovery tailored to their sp
     }
   };
 
-  const recentTimeSecs = calcRecentHours * 3600 + calcRecentMinutes * 60 + calcRecentSeconds;
+  const recentHoursValue = Number(calcRecentHours || 0);
+  const recentMinutesValue = Number(calcRecentMinutes || 0);
+  const recentSecondsValue = Number(calcRecentSeconds || 0);
+  const recentTimeSecs = recentHoursValue * 3600 + recentMinutesValue * 60 + recentSecondsValue;
   let estimatedTimeSecs = 0;
   let estimatedPaceSecs = 0;
   if (recentTimeSecs > 0 && calcRecentDist > 0 && calcTargetDist > 0) {
@@ -387,7 +390,7 @@ Calculate a realistic but challenging target finish time for this ${raceLength} 
 Reply ONLY with the suggested time in MM:SS or HH:MM:SS format (e.g., "45:30" or "01:45:00"). Do not add any extra text, explanation, or markdown formatting.`;
 
       const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.6-flash",
         contents: prompt,
       });
 
@@ -638,9 +641,9 @@ Reply ONLY with the suggested time in MM:SS or HH:MM:SS format (e.g., "45:30" or
                   <div>
                     <label className="block text-xs font-bold text-foreground/90 mb-1">Recent Time (HH:MM:SS)</label>
                     <div className="flex gap-2">
-                      <input type="number" min="0" value={calcRecentHours} onChange={(e) => setCalcRecentHours(Number(e.target.value))} className="w-1/3 p-2.5 rounded-lg border-2 border-foreground bg-white text-center font-medium focus:ring-0" placeholder="HH" />
-                      <input type="number" min="0" max="59" value={calcRecentMinutes} onChange={(e) => setCalcRecentMinutes(Number(e.target.value))} className="w-1/3 p-2.5 rounded-lg border-2 border-foreground bg-white text-center font-medium focus:ring-0" placeholder="MM" />
-                      <input type="number" min="0" max="59" value={calcRecentSeconds} onChange={(e) => setCalcRecentSeconds(Number(e.target.value))} className="w-1/3 p-2.5 rounded-lg border-2 border-foreground bg-white text-center font-medium focus:ring-0" placeholder="SS" />
+                      <input type="number" min="0" value={calcRecentHours} onChange={(e) => setCalcRecentHours(e.target.value)} className="w-1/3 p-2.5 rounded-lg border-2 border-foreground bg-white text-center font-medium focus:ring-0" placeholder="HH" />
+                      <input type="number" min="0" max="59" value={calcRecentMinutes} onChange={(e) => setCalcRecentMinutes(e.target.value)} className="w-1/3 p-2.5 rounded-lg border-2 border-foreground bg-white text-center font-medium focus:ring-0" placeholder="MM" />
+                      <input type="number" min="0" max="59" value={calcRecentSeconds} onChange={(e) => setCalcRecentSeconds(e.target.value)} className="w-1/3 p-2.5 rounded-lg border-2 border-foreground bg-white text-center font-medium focus:ring-0" placeholder="SS" />
                     </div>
                   </div>
 
